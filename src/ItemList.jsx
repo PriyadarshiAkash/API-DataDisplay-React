@@ -1,5 +1,5 @@
 // src/ItemList.js
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   List,
@@ -17,8 +17,8 @@ const ItemList = () => {
     const fetchItems = async () => {
       try {
         const response = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts"
-        ); // Using posts endpoint for example
+          "https://jsonplaceholder.typicode.com/users"
+        );
         setItems(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -29,7 +29,7 @@ const ItemList = () => {
   }, []);
 
   const filteredItems = items.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -45,7 +45,7 @@ const ItemList = () => {
       <List>
         {filteredItems.map((item) => (
           <ListItem key={item.id}>
-            <ListItemText primary={item.title} secondary={item.body} />
+            <ListItemText primary={item.name} />
           </ListItem>
         ))}
       </List>
